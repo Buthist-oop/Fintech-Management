@@ -1,0 +1,33 @@
+<h2>Loan Details</h2>
+
+<div *ngIf="loan">
+  <p><strong>Loan Type:</strong> {{ loan.loanType }}</p>
+  <p><strong>Loan Amount:</strong> {{ loan.loanAmount | currency }}</p>
+  <p><strong>Interest Rate:</strong> {{ loan.interestRate }}%</p>
+  <p><strong>Duration:</strong> {{ loan.duration }} months</p>
+  <p><strong>Start Date:</strong> {{ loan.startDate }}</p>
+</div>
+
+<h3>Repayment Schedule</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Installment #</th>
+      <th>Due Date</th>
+      <th>Amount</th>
+      <th>Remaining Amount</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let installment of loanSchedule">
+      <td>{{ installment.installmentNumber }}</td>
+      <td>{{ installment.dueDate }}</td>
+      <td>{{ installment.amount | currency }}</td>
+      <td>{{ installment.remainingAmount | currency}}</td>
+      <td [ngClass]="{ 'paid': installment.status === 'Paid', 'pending': installment.status === 'Pending' }">
+        {{ installment.status }}
+      </td>
+    </tr>
+  </tbody>
+</table>

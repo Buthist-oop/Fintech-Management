@@ -1,0 +1,32 @@
+<div class="loan-container">
+    <h2 class="loan-header">Loan List</h2>
+  
+    <table class="loan-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Customer</th>
+          <th>Loan Type</th>
+          <th>Amount</th>
+          <th>Interest Rate (%)</th>
+          <th>Duration (Months)</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let loan of loans">
+          <td>{{ loan.id }}</td>
+          <td>{{ getCustomerName(loan.customerId) }}</td>
+          <td>{{ loan.loanType }}</td>
+          <td>${{ loan.loanAmount | number:'1.2-2' }}</td>
+          <td>{{ loan.interestRate }}%</td>
+          <td>{{ loan.duration }}</td>
+          <td class="loan-actions">
+            <button class="view-btn" (click)="viewLoan(loan.id)">View Repayment Schedule</button>
+            <button class="delete-btn" (click)="deleteLoan(loan.id)">Delete Loan</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

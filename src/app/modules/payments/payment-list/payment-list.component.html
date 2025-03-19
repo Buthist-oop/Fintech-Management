@@ -1,0 +1,25 @@
+<div class="payment-container">
+    <h2 class="payment-header">Payment List</h2>
+  
+    <table class="payment-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Loan</th>
+          <th>Installment</th>
+          <th>Amount Paid</th>
+          <th>Payment Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let payment of payments">
+          <td>{{ payment.id }}</td>
+          <td>{{ getLoanDetails(payment.loanId) }}</td>
+          <td>#{{ payment.installmentNumber }}</td>
+          <td>${{ payment.amountPaid | number:'1.2-2' }}</td>
+          <td>{{ payment.paymentDate }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

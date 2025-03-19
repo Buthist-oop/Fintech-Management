@@ -1,0 +1,26 @@
+<div class="payment-form">
+    <h2>Make a Payment</h2>
+  
+    <label>Loan:</label>
+    <select [(ngModel)]="selectedLoanId" (change)="loadInstallments()">
+      <option *ngFor="let loan of loans" [value]="loan.id">
+        Loan #{{ loan.id }} - {{ loan.loanType }}
+      </option>
+    </select>
+  
+    <label>Installment:</label>
+    <select [(ngModel)]="selectedInstallment">
+      <option *ngFor="let inst of schedule" [value]="inst.installmentNumber">
+        Installment #{{ inst.installmentNumber }} - Due: {{ inst.dueDate }} - ${{ inst.amount }}
+      </option>
+    </select>
+  
+    <label>Amount Paid:</label>
+    <input type="number" [(ngModel)]="amountPaid" />
+  
+    <label>Payment Date:</label>
+    <input type="date" [(ngModel)]="paymentDate" />
+  
+    <button (click)="makePayment()">Submit Payment</button>
+  </div>
+  

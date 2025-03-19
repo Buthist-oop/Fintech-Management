@@ -1,0 +1,13 @@
+<div *ngIf="customer" class="customer-details-container">
+    <h2>Customer Details</h2>
+    <img *ngIf="customer.profilePicture" [src]="customer.profilePicture" alt="Profile Picture" class="profile-pic">
+    
+    <p><strong>Full Name:</strong> {{ customer.fullName }}</p>
+    <p><strong>Email:</strong> {{ customer.email }}</p>
+    <p><strong>Phone Number:</strong> {{ customer.phoneNumber }}</p>
+    <p><strong>Date of Registration:</strong> {{ customer.dateOfRegistration }}</p>
+    <p><strong>Customer Type:</strong> {{ customer.customerType }}</p>
+    
+    <button (click)="goBack()" class="back-btn">Back to List</button>
+  </div>
+  

@@ -1,0 +1,28 @@
+<div class="loan-form-container">
+    <h2>{{ isEditMode ? 'Edit Loan' : 'Apply for Loan' }}</h2>
+    <form (ngSubmit)="onSubmit()">
+        <label for="customer">Customer:</label>
+        <select id="customer" [(ngModel)]="loan.customerId" name="customer" required>
+            <option *ngFor="let customer of customers" [value]="customer.id">
+                {{ customer.fullName }}
+            </option>
+        </select>
+
+        <label for="loanType">Loan Type:</label>
+        <input id="loanType" type="text" [(ngModel)]="loan.loanType" name="loanType" required>
+
+        <label for="loanAmount">Loan Amount:</label>
+        <input id="loanAmount" type="number" [(ngModel)]="loan.loanAmount" name="loanAmount" required>
+
+        <label for="interestRate">Interest Rate (%):</label>
+        <input id="interestRate" type="number" [(ngModel)]="loan.interestRate" name="interestRate" required>
+
+        <label for="duration">Duration (Months):</label>
+        <input id="duration" type="number" [(ngModel)]="loan.duration" name="duration" required>
+
+        <label for="startDate">Start Date:</label>
+        <input id="startDate" type="date" [(ngModel)]="loan.startDate" name="startDate" required>
+
+        <button type="submit">{{ isEditMode ? 'Update Loan' : 'Submit Loan' }}</button>
+    </form>
+</div>
