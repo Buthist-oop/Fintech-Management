@@ -37,7 +37,7 @@ export class PaymentService {
     console.log("💰 Processing Payment:", payment);
 
     // Pass the correct paid amount
-    this.loanService.markInstallmentAsPaid(payment.loanId, payment.installmentNumber, payment.amountPaid);
+    this.loanService.markInstallmentAsPaid(payment.loanId, payment.amountPaid);
 
     // ✅ Force re-fetch schedules from LocalStorage
     setTimeout(() => {

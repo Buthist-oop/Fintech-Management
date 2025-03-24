@@ -86,23 +86,28 @@ export class LoanService {
     return schedules.filter(schedule => Number(schedule.loanId) === Number(loanId));
   }
 
-  markInstallmentAsPaid(loanId: number, installmentNumber: number, paidAmount: number): void {
+  markInstallmentAsPaid(loanId: number, paidAmount: number): void {
     let schedules = this.getLoanSchedules();
+    let remainingPayment = paidAmount; // Track excess payment
   
     let updatedSchedules = schedules.map(schedule => {
-      if (Number(schedule.loanId) === Number(loanId) && Number(schedule.installmentNumber) === Number(installmentNumber)) {
-        console.log(`✅ Found Installment #${installmentNumber}! Current Remaining: ${schedule.remainingAmount}, Paid: ${paidAmount}`);
+      if (Number(schedule.loanId) === Number(loanId) && schedule.status !== 'Paid') {
+        console.log(`✅ Processing Installment #${schedule.installmentNumber}! Current Remaining: ${schedule.remainingAmount}, Paid: ${remainingPayment}`);
+  
+        if (remainingPayment <= 0) return schedule; // No more payment to distribute
   
         // Deduct payment from remainingAmount
-        schedule.remainingAmount -= paidAmount;
+        let paymentApplied = Math.min(remainingPayment, schedule.remainingAmount);
+        schedule.remainingAmount -= paymentApplied;
+        remainingPayment -= paymentApplied;
   
         // Ensure remainingAmount never goes negative
         if (schedule.remainingAmount <= 0) {
           schedule.remainingAmount = 0;
           schedule.status = 'Paid'; // ✅ Update status to "Paid"
-          console.log(`✅ Installment #${installmentNumber} is now PAID!`);
+          console.log(`✅ Installment #${schedule.installmentNumber} is now PAID!`);
         } else {
-          console.log(`🔹 Installment #${installmentNumber} still has balance: ${schedule.remainingAmount}`);
+          console.log(`🔹 Installment #${schedule.installmentNumber} still has balance: ${schedule.remainingAmount}`);
         }
       }
       return schedule;
@@ -121,6 +126,8 @@ export class LoanService {
     this.installmentUpdated.emit(); // ✅ Notify UI
     this.router.navigate(['/modules/loans/details', loanId]);
   }
+  
+
   
   
 
